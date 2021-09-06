@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   --myColor1 : #f34c5e;
-  --myColor2: #599097;
+  --myColor2: #30c0d3;
 }
 
 body {
@@ -48,12 +48,14 @@ ul{
 
 .todo{
   padding: 20px 15%;
-  background-color: #eee;
+  
 }
 
 .todo__input{
   position: relative;
   text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #999;
 }
 
 .todo__input input{
@@ -85,8 +87,79 @@ ul{
 }
 
 .todo__input button{
-  padding: 10px;
+  position: relative;
 
+  padding: 12px;
+  color: var(--myColor2);
+  border: 1px solid var(--myColor2);
+  cursor: pointer;
+}
+
+.todo__input button::before{
+  content: "";
+
+  position: absolute;
+  background-color: #fff;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  opacity: 0.6;
+
+  transition: transform .4s ease;
+  transform-origin: center right;
+}
+
+.todo__input button:hover::before {
+  transform-origin: center left;
+  transform: scaleX(1);
+  transition: transform .4s ease;
+}
+
+.todo__content{
+  text-align: center;
+  padding: 20px
+}
+
+.todo__wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.todo__item{
+  display: flex;
+  position: relative;
+  border: 1px solid #999;
+  padding: 4px;
+
+  width: 300px;
+  min-height: 24px;
+  margin: 10px 0;
+}
+
+.todo__item img{
+  width: 30px;
+  height: auto;
+  background-color: var(--myColor1);
+  border-radius: 2px;
+  right: -2px;
+  top: 0;
+
+  position: absolute;
+  cursor: pointer;
+}
+
+.todo__item label{
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.text-through{
+  text-decoration: line-through;
 }
 
 .todo__input input:not(:placeholder-shown) + label,
