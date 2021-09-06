@@ -1,5 +1,12 @@
-body {
+*{
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --myColor1 : #f34c5e;
+  --myColor2: #599097;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +17,84 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+ul{
+  list-style: none;
+}
+
+.header{
+  background-color: var(--myColor1);
+  color: #eee;
+  
+  min-height: 50vh;
+  /* padding: 100px; */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+}
+
+.header__wrapper {
+  width: 80%;
+}
+
+.header__wrapper h1{
+  font-size: 46px;
+  font-weight: 300;
+  color: white;
+}
+
+.todo{
+  padding: 20px 15%;
+  background-color: #eee;
+}
+
+.todo__input{
+  position: relative;
+  text-align: center;
+}
+
+.todo__input input{
+  margin-right: 20px;
+  padding: 20px;
+  height: 20px;
+  width: 250px;
+
+  outline: none;
+  transition: .5s ease;
+  border: 2px solid #eee;
+}
+
+.todo__input input:focus{
+  border: 2px solid var(--myColor1)
+}
+
+.todo__input label{
+  position: absolute;
+  top: 0;
+  left: 35%;
+
+  transform: translateY(45%);
+  user-select: none;
+  color: #999;
+
+  pointer-events: none;
+  transition: .5s ease;
+}
+
+.todo__input button{
+  padding: 10px;
+
+}
+
+.todo__input input:not(:placeholder-shown) + label,
+.todo__input input:focus + label{
+  transform: translateY(-50%);
+  display: inline-block;
+
+  background-color: white;
+  padding: 0 15px;
+  border-radius: 5px;
 }
