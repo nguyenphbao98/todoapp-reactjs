@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import deleteLogo from'../../assets/delete-bin.png';
 
 function TodoList() {
+
+    const inputRef = useRef('')
+
+    const [searchTerm,setSearchTerm] = useState('')
 
     const [checkedTasks,setCheckedTasks] = useState([
         {
@@ -26,8 +30,29 @@ function TodoList() {
     const handleAddTask = (e) => {
         e.preventDefault();
 
-        console.log(e.target);
+        if(searchTerm){
+
+            const newTasks = [...checkedTasks];
+            newTasks.push({
+                id: (Math.random() * 1000).toString(),
+                // maybe need to clear the string first
+                content: searchTerm,
+                checked: false
+            })
+
+            setCheckedTasks(newTasks);
+            setSearchTerm('');
+        }
     }
+
+    const handleOnInputChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value)
+    }
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, [])
 
     const handleCheckedTask = (id) => {
         
@@ -57,7 +82,7 @@ function TodoList() {
     return (
         <div className="todo">
             <form className="todo__input" onSubmit={(e) => handleAddTask(e)}>
-                <input type="text" id="task" placeholder=" "/>
+                <input ref={inputRef} type="text" value={searchTerm} id="task" placeholder=" " onChange={(e) => handleOnInputChange(e)}/>
                 <label>Task</label>
                 <button>Add Task</button>
             </form>
