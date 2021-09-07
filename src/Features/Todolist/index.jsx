@@ -1,46 +1,31 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import deleteLogo from'../../assets/delete-bin.png';
+import { handleRemove, handleChecked, handleAdd } from './todoSlice';
 
 function TodoList() {
+
+    const dispatch = useDispatch();
 
     const inputRef = useRef('')
 
     const [searchTerm,setSearchTerm] = useState('')
 
-    const [checkedTasks,setCheckedTasks] = useState([
-        {
-            id: '1',
-            content: 'This is my task 1',
-            checked: true,
-        },
-
-        {
-            id: '2',
-            content: 'This is my task 2',
-            checked: false,
-        },
-
-        {
-            id: '3',
-            content: 'This is my task 3',
-            checked: false,
-        }
-    ])
+    const checkedTasks = useSelector((state) => state.tasks.tasks)
 
     const handleAddTask = (e) => {
         e.preventDefault();
 
         if(searchTerm){
 
-            const newTasks = [...checkedTasks];
-            newTasks.push({
+            const item = {
                 id: (Math.random() * 1000).toString(),
                 // maybe need to clear the string first
                 content: searchTerm,
                 checked: false
-            })
+            }
 
-            setCheckedTasks(newTasks);
+            dispatch(handleAdd(item))
             setSearchTerm('');
         }
     }
@@ -58,19 +43,12 @@ function TodoList() {
         
         // remove
         // const newCheckedTask = checkedTasks.filter(item => item.id !== id)
-        const index = checkedTasks.findIndex(item => item.id === id)
-        if(index < 0)
-            return;
-
-        const newCheckedTask = [...checkedTasks];
-        newCheckedTask[index].checked = !newCheckedTask[index].checked;
-        setCheckedTasks(newCheckedTask);
+        dispatch(handleChecked(id))
     }
 
     const handleRemoveTask = (id) => {
-        const newCheckedTask = checkedTasks.filter(item => item.id !== id)
-
-        setCheckedTasks(newCheckedTask);
+        dispatch(handleRemove(id))
+        //setCheckedTasks(newCheckedTask);
     }
 
     // item {
